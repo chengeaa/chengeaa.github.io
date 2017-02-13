@@ -3,7 +3,7 @@ ul.navbar {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #003262;
 }
 li.navbar {
     float: left;
@@ -16,11 +16,11 @@ li.navbar a{
     text-decoration: none;
 }
 li.navbar a:hover:not(.active) {
-    background-color: #111;
+    background-color: #3B7EA1;
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: #FDB515;
 }
 
 
