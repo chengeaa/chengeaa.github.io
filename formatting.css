@@ -48,7 +48,7 @@ p {
     padding: 10px;
 }
 
-h2 {
+div.content h2 {
     margin: auto;
     text-align: center;
     padding: 20px;
