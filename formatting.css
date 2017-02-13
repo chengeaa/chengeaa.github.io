@@ -27,7 +27,8 @@ li.navbar a:hover:not(.active) {
 }
 
 div.maintitle {
-    padding = 20px
+    padding : 20px;
+    margin-top: 30px;
 }
 
 h1 {
