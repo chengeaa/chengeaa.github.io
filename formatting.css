@@ -4,6 +4,9 @@ ul.navbar {
     padding: 0;
     overflow: hidden;
     background-color: #003262;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 li.navbar {
     float: left;
@@ -23,6 +26,9 @@ li.navbar a:hover:not(.active) {
     background-color: #FDB515;
 }
 
+div.maintitle {
+    padding = 20px
+}
 
 h1 {
 
