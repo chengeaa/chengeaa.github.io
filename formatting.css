@@ -6,6 +6,7 @@ ul.navbar {
     background-color: #003262;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
 }
 li.navbar {
