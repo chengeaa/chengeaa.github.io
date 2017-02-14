@@ -61,7 +61,7 @@ div.maintitle {
 
 div.maintitle h1 {
     font-size: 10vw;
-    margin: 20px 0 0 0;
+    margin: 40px 0 0 0;
     padding:0px;
 }
 div.maintitle h2 {
@@ -71,21 +71,19 @@ div.maintitle h2 {
 }
 p {
     margin: auto;
-    text-align: center;
     padding: 10px;
 }
 
 div.content{
-    margin: auto;
-    text-align: center;
     color: #003262;
 }
 
-div.2col {
-    -webkit-column-count: 3; /* Chrome, Safari, Opera */
-    -moz-column-count: 3; /* Firefox */
-    column-count: 3;
-    margin:auto;
-    text-align:center;
-    color: #003262;
+figure,figcaption {
+      display: block;
+    }
+.sandia,.saykally {
+    float: left;
+}
+.clearfix{
+    clear:both
 }
