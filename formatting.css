@@ -84,8 +84,27 @@ div.heading{
 figure,figcaption {
       display: block;
     }
-.sandia,.saykally {
+div.imgcont{
     float: left;
+    width: 50%;
+    overflow:hidden;
+}
+
+div.imgcont:hover{
+    background-color: #EEEEEE;
+}
+.grow{
+
+    height:auto;
+    width: auto;
+    display:block;
+    margin:auto;
+    overflow:hidden;
+    position:relative;
+
+}
+.grow:hover {
+    height: 1000px;
 }
 .clearfix{
     clear:both
@@ -101,3 +120,4 @@ div.content{
     text-align:center;
     margin:auto;
 }
+
