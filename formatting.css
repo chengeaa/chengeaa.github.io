@@ -1,5 +1,13 @@
+@font-face{
+    font-family:jaapokki;
+    src: url(https://chengeaa.github.io/assets/jaapokkienchance-regular.woff);
+}
+html {
+    font-size:14px;
+}
 body {
     background-color: #DDD5C7;
+    font-family:jaapokki,veranda,sans-serif;
 }
 ul.navbar {
     list-style-type: none;
@@ -11,16 +19,20 @@ ul.navbar {
     top: 0;
     left: 0;
     width: 100%;
+    z-index:10000000000;
 }
     li.navbar {
         float: left;
+
     }
     li.navbar a{
         display: block;
         color: white;
         text-align: center;
-        padding: 14px 16px;
+        padding: 1vw 1.5vw;
         text-decoration: none;
+        font-size: calc(12px + .6vw);
+
     }
     li.navbar a:hover:not(.active) {
         background-color: #3B7EA1;
@@ -51,34 +63,39 @@ ul.navbar {
             text-align: left;
         }
 
-div.maintitle {
-    margin:0px;
-    padding:10px;
-    text-align: center;
+
+.maintitle {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
     color: #003262;
     background-color:#B9D3B6;
+    text-align: center;
 }
-
 div.maintitle h1 {
-    font-size: 7vw;
+    font-size: calc(28px + 7vw);
     margin: 40px 0 0 0;
     padding:10px;
 }
 div.maintitle h2 {
-    font-size: 1.5vw;
+    font-size: calc(18px + 1vw);
     margin: 0 0 0 0;
     padding:10px;
 }
 p {
     margin: auto;
     padding: 10px;
+    font-size: calc(10px + .4vw);
 }
 
 div.heading{
     margin: 0 0 0 0;
     text-align: center;
     color: #003262;
-    font-size:2vw;
+    font-size:calc(22px + .6vw);
 }
 
 figure,figcaption {
@@ -88,6 +105,7 @@ div.imgcont{
     float: left;
     width: 50%;
     overflow:hidden;
+    padding-bottom:0%;
 }
 
 div.imgcont:hover{
@@ -95,8 +113,9 @@ div.imgcont:hover{
 }
 .grow{
 
-    height:auto;
-    width: auto;
+    height: 50%;
+    width: 50%;
+
     display:block;
     margin:auto;
     overflow:hidden;
@@ -104,20 +123,41 @@ div.imgcont:hover{
 
 }
 .grow:hover {
-    height: 1000px;
+    height: 60%;
+    width: 60%;
+
+    display:block;
+    margin:auto;
+    overflow:hidden;
+    position:relative;
+
 }
 .clearfix{
     clear:both
 }
+
+h3 {
+    text-align:center;
+    margin-top: 1%;
+    font-size: calc(18px + .8vw);
+}
+.wrap{
+    width:60%;
+    margin:auto;
+}
 img {
-    max-width: 100%;
-    height:auto;
-    width:auto\9;
-    max-height: 500px;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
 
 }
+
+
 div.content{
     text-align:center;
     margin:auto;
 }
+
 
