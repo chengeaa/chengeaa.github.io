@@ -176,4 +176,10 @@ div.content{
     padding:10px;
 }
 
+.twocolumn{
+    border-style: double;
+    border-color: #003262;
+    width: 49.5%;
+}
+
 
