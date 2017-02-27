@@ -90,7 +90,7 @@ div.maintitle h2 {
 div.content h1 {
     margin:10px;
 }
-p {
+.body {
     margin: auto;
     font-size: calc(10px + .4vw);
 }
@@ -156,13 +156,17 @@ img {
 
 }
 
-ul{
+.pubs{
     text-align:left;
     margin:auto;
-    padding:10px;
-
+    margin-right:10px;
+    list-style-type: decimal;
+    font-size: calc(10px + .4vw);
 }
 
+.pubs ul{
+    font-size: calc(8px + .35vw);
+}
 div.content{
     text-align:center;
     margin:auto;
