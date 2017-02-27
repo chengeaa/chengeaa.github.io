@@ -83,7 +83,7 @@ div.maintitle h1 {
     padding:10px;
 }
 div.maintitle h2 {
-    font-size: calc(18px + 1vw);
+    font-size: calc(24px + 1vw);
     margin: 0 0 0 0;
     padding:10px;
 }
@@ -92,7 +92,7 @@ div.content h1 {
 }
 .body {
     margin: auto;
-    font-size: calc(10px + .4vw);
+    font-size: calc(20px + .3vw);
 }
 
 div.heading{
@@ -141,7 +141,7 @@ div.imgcont{
 h3 {
     text-align:center;
     margin-top: 1%;
-    font-size: calc(18px + .8vw);
+    font-size: calc(22px + .6vw);
 }
 .wrap{
     width:60%;
@@ -161,7 +161,10 @@ img {
     margin:auto;
     margin-right:10px;
     list-style-type: decimal;
-    font-size: calc(10px + .4vw);
+    font-size: calc(10px + .5vw);
+}
+.pubs li{
+    margin-bottom:15px;
 }
 
 .pubs ul{
