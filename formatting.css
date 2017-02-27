@@ -105,7 +105,7 @@ div.heading{
 figure,figcaption {
       display: block;
     }
-div.imgcont{
+div.img2col{
     float: left;
     width: 50%;
     overflow:hidden;
