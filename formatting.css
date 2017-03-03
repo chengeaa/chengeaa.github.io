@@ -99,7 +99,7 @@ div.heading{
     margin:0;
     text-align: center;
     color: #003262;
-    font-size:calc(12px + .6vw);
+    font-size:calc(18px + .6vw);
 }
 
 figure,figcaption {
@@ -131,7 +131,7 @@ div.img2col{
 h3 {
     text-align:center;
     margin-top: 1%;
-    font-size: calc(16px + .6vw);
+    font-size: calc(12px + .6vw);
 }
 .wrap{
     width:60%;
@@ -145,14 +145,14 @@ img {
     margin:auto;
     margin-right:10px;
     list-style-type: decimal;
-    font-size: calc(14px + .2vw);
+    font-size: calc(14px + .25vw);
 }
 .pubs li{
     margin-bottom:15px;
 }
 
 .pubs ul{
-    font-size: calc(10px + .2vw);
+    font-size: calc(10px + .25vw);
 }
 div.content{
     text-align:center;
