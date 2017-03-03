@@ -143,19 +143,19 @@ div.img2col{
 img {
 }
 
-.pubs{
+.bodylist{
     text-align:left;
     margin:auto;
     margin-right:10px;
     list-style-type: decimal;
-    font-size: calc(10px + .4vw);
+    font-size: calc(14px + .2vw);
 }
-.pubs li{
+.bodylist li{
     margin-bottom:15px;
 }
 
-.pubs ul{
-    font-size: calc(6px + .4vw);
+.bodylist ul{
+    font-size: calc(12px + .15vw);
 }
 div.content{
     text-align:center;
