@@ -78,28 +78,28 @@ ul.navbar {
     text-align: center;
 }
 div.maintitle h1 {
-    font-size: calc(28px + 7vw);
+    font-size: calc(100px + 3vw);
     margin: 40px 0 0 0;
     padding:10px;
 }
 div.maintitle h2 {
-    font-size: calc(24px + 1vw);
+    font-size: calc(8px + 1vw);
     margin: 0 0 0 0;
-    padding:10px;
+    padding:0px;
 }
 div.content h1 {
     margin:10px;
 }
 .body {
     margin: auto;
-    font-size: calc(20px + .3vw);
+    font-size: calc(16px + .3vw);
 }
 
 div.heading{
     margin:0;
     text-align: center;
     color: #003262;
-    font-size:calc(22px + .6vw);
+    font-size:calc(12px + .6vw);
 }
 
 figure,figcaption {
@@ -115,18 +115,8 @@ div.img2col{
 
 .grow{
 
-    height: 45%;
-    width: 45%;
-
-    display:block;
-    margin:auto;
-    overflow:hidden;
-    position:relative;
-
-}
-.grow:hover {
-    height: 45%;
-    width: 45%;
+    height: 30%;
+    width: 30%;
 
     display:block;
     margin:auto;
@@ -141,7 +131,7 @@ div.img2col{
 h3 {
     text-align:center;
     margin-top: 1%;
-    font-size: calc(22px + .6vw);
+    font-size: calc(16px + .6vw);
 }
 .wrap{
     width:60%;
@@ -155,14 +145,14 @@ img {
     margin:auto;
     margin-right:10px;
     list-style-type: decimal;
-    font-size: calc(10px + .5vw);
+    font-size: calc(14px + .2vw);
 }
 .pubs li{
     margin-bottom:15px;
 }
 
 .pubs ul{
-    font-size: calc(8px + .35vw);
+    font-size: calc(10px + .2vw);
 }
 div.content{
     text-align:center;
@@ -177,3 +167,6 @@ div.content{
 }
 
 
+.text {
+    font-size: calc(8px + .35vw);
+}
