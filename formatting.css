@@ -4,7 +4,7 @@
 }
 @font-face{
     font-family:kayak;
-    src: url(https://chengeaa.github.io/assets/Kayak Sans Regular.otf);
+    src: url(https://chengeaa.github.io/assets/kayak.woff);
 }
 html {
     font-size:14px;
@@ -163,7 +163,7 @@ img {
 }
 
 .bodylist ul{
-    font-size: calc(12px + .15vw);
+    font-size: calc(12px + .2vw);
 }
 div.content{
     text-align:center;
