@@ -4,7 +4,7 @@
 }
 @font-face{
     font-family:kayak;
-    src: url(chengeaa.github.io/assets/Kayak%20Sans%20Regular.otf);
+    src: url(https://chengeaa.github.io/assets/Kayak Sans Regular.otf);
 }
 html {
     font-size:14px;
@@ -17,7 +17,7 @@ body {
     padding:0;
 }
 ul.navbar {
-    font-family:kayak;
+    font-family:jaapokki;
     list-style-type: none;
     margin: 0;
     padding: 0;
