@@ -2,16 +2,22 @@
     font-family:jaapokki;
     src: url(https://chengeaa.github.io/assets/jaapokki-regular.woff);
 }
+@font-face{
+    font-family:kayak;
+    src: url(chengeaa.github.io/assets/Kayak%20Sans%20Regular.otf);
+}
 html {
     font-size:14px;
 }
+
 body {
     background-color: #DDD5C7;
-    font-family:jaapokki,veranda,sans-serif;
+    font-family:kayak,veranda,sans-serif;
     margin:0;
     padding:0;
 }
 ul.navbar {
+    font-family:kayak;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -76,6 +82,7 @@ ul.navbar {
     color: #003262;
     background-color:#B9D3B6;
     text-align: center;
+    font-family:jaapokki;
 }
 div.maintitle h1 {
     font-size: calc(100px + .2vw);
@@ -107,6 +114,7 @@ div.heading{
     text-align: center;
     color: #003262;
     font-size:calc(18px + .2vw);
+    font-family:jaapokki;
 }
 
 figure,figcaption {
