@@ -85,7 +85,7 @@ ul.navbar {
     font-family:jaapokki;
 }
 div.maintitle h1 {
-    font-size: calc(100px + .2vw);
+    font-size: calc(70px + .1vw);
     margin: 40px 0 0 0;
     padding:10px;
 }
