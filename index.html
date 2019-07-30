@@ -19,10 +19,12 @@
 
 </div>
 
-<script>
-$(function(){
-  $("#nav-placeholder").load("nav.html");
-});
+ <script>
+  $(function(){
+    $("#nav-placeholder").load("nav.html", function() {
+      $("ul.mynavbar").find("li:nth-child(1)").addClass("active");
+      });
+  });
 </script>
 
 <div class = "maintitle">
@@ -42,20 +44,23 @@ $(function(){
 
     <div class="col-lg-9">
         <br>
+        <p>
         I am a currently a second year Materials Science and Engineering PhD student in the Cockrell School of Engineering at the University of Texas at Austin, where I am also a Graduate Research Assistant in the <a href="http://utw10370.utweb.utexas.edu/index.html">computational materials lab of Dr. Gyeong Hwang</a>.
         In my current research, I apply ab initio techniques (primarily density functional theory using VASP) to study gas-solid interfacial chemistry, with a particular focus on developing a mechanistic understanding of atomic layer etching (ALE).
+        </p>
+        <p>
         I did my undergrad at UC Berkeley, where I obtained a B.S. in Chemistry.
         At Berkeley, I was an undergraduate researcher in the Saykally group, where I researched the evaporation of aqueous solutions using Raman thermometry.
         I also developed a keen interest in data science, and was involved in a host of different projects through the Berkeley Institute of Data Science.
         For three semesters, I was also on course staff for Foundations of Data Science.
+        </p>
+        <p>
+            In my spare time, I speedcube, boulder, and play Tetris.
+        </p>
+        <button onclick="btnfxn()"> click for fun </button>
 
-        In my spare time, I speedcube, boulder, and play Tetris.
-            <li>
-                <button onclick="btnfxn()"> click for fun </button>
-            </li>
-            <li id="fun">
-            </li>
-        </ul>
+        <p id="fun">
+        </p>
     </div>
   </div>
 </div>

@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <link rel="stylesheet" type="text/css" href="formatting.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="formatting.css">
     <link rel="shortcut icon" type="image/ico" href="https://chengeaa.github.io/favicon.ico">
     <meta charset="UTF-8">
     <title>Other</title>
 </head>
 <body>
-<div class = "navbar">
-    <ul class = "navbar">
-      <li class = "navbar"><a href = "https://chengeaa.github.io"> Home </a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/students">Student Resources </a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/chemistry">Chemistry</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/cubing">Cubing</a></li>
-      <li class = "navbar"><a class = "active" href = "https://chengeaa.github.io/Other">Other</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/datasci">Data Science</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/contact">About/Contact</a></li>
-    </ul>
+<div id="nav-placeholder">
+
 </div>
+
+ <script>
+  $(function(){
+    $("#nav-placeholder").load("nav.html", function() {
+      $("ul.mynavbar").find("li:nth-child(5)").addClass("active");
+      });
+  });
+</script>
 <div class = "maintitle">
     <h1>
         Other Fun Things
