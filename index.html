@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="formatting.css">
+    <script src="script.js"></script>
     <link rel="shortcut icon" type="image/ico" href="https://chengeaa.github.io/favicon.ico">
     <meta charset="UTF-8">
     <meta name="keywords" content="Erik Cheng, Erik S. Cheng, Eric Cheng, Data 8, UC Berkeley, Chemistry, Data Science, Rubik's Cube, Decal, Research, Cedar Falls">
-    <title>Hi buddy!</title>
+    <title>Hello!</title>
 
 </head>
 <body>
-<div class = "navbar">
-    <ul class = "navbar">
-      <li class = "navbar"><a class = "active" href = "https://chengeaa.github.io"> Home </a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/students">Student Resources </a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/chemistry">Chemistry</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/cubing">Cubing</a></li>
-        <li class = "navbar"><a href = "https://chengeaa.github.io/Other">Other</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/datasci">Data Science</a></li>
-      <li class = "navbar"><a href = "https://chengeaa.github.io/contact">Contact Me</a></li>
-    </ul>
+
+<div id="nav-placeholder">
+
 </div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("nav.html");
+});
+</script>
+
 <div class = "maintitle">
     <h1>Hi! I'm Erik!</h1>
     <h2>This website is and forever will be under construction. Feel free to poke around.</h2>
 </div>
-<div class = "content">
-    <div class = "body" style = "width: 70%;">
-        <h3 style = "margin:0;">
-              I am a:
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3">
+        <h3>
+            <br>
         </h3>
-        <ul style = "display:inline-block; text-align:left;">
-            <li>
-                Graduate Research Assistant in the <a href = "http://utw10370.utweb.utexas.edu/index.html">computational materials lab of Dr. Gyeong Hwang</a>
+        <img style = "width: 20vmax;display:block;margin:auto" src= "https://chengeaa.github.io/assets/13230189_891744930954638_6501320144240574769_n.jpg">
+    </div>
 
-            </li>
-            <li>
-                Cuber, climber, and Tetris GM (on most days)
-            </li>
-            <li>
-                (former) UGSI for Data 8 and instructor for the Rubik's Cube DeCal.
-            </li>
-            <li>
-                (former) chemistry major at Cal and (former) researcher in physical chemistry.
-            </li>
+    <div class="col-lg-9">
+        I am a currently a second year Materials Science and Engineering PhD student in the Cockrell School of Engineering at the University of Texas at Austin, where I am also a Graduate Research Assistant in the <a href="http://utw10370.utweb.utexas.edu/index.html">computational materials lab of Dr. Gyeong Hwang</a>.
+        In my current research, I apply ab initio techniques (primarily density functional theory using VASP) to study gas-solid interfacial chemistry, with a particular focus on developing a mechanistic understanding of atomic layer etching (ALE).
+        I did my undergrad at UC Berkeley, where I obtained a B.S. in Chemistry.
+        At Berkeley, I was an undergraduate researcher in the Saykally group, where I researched the evaporation of aqueous solutions using Raman thermometry.
+        I also developed a keen interest in data science, and was involved in a host of different projects through the Berkeley Institute of Data Science.
+        For three semesters, I was also on course staff for Foundations of Data Science.
 
+        In my spare time, I speedcube, boulder, and play Tetris.
             <li>
-                A lean mean metabolizing machine. Pls send me food. (definitely not former)
+                <button onclick="btnfxn()"> click for fun </button>
+            </li>
+            <li id="fun">
             </li>
         </ul>
     </div>
-    <h3>
-        My natural state:
-    </h3>
-    <img src= "https://chengeaa.github.io/assets/13230189_891744930954638_6501320144240574769_n.jpg">
+  </div>
 </div>
 
 </body>

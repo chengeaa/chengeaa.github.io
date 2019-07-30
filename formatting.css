@@ -3,15 +3,19 @@
     src: url(assets/jaapokki-regular.woff);
 }
 @font-face{
-    font-family:bebas;
-    src: url(assets/BebasNeue-Light.ttf);
+    font-family:bebasbold;
+    src: url(assets/BebasNeue-Bold.otf);
+}
+@font-face{
+    font-family:bebasthin;
+    src: url(assets/BebasNeue-Regular.otf);
 }
 @font-face{
     font-family:kayak;
     src: url(assets/kayak.woff);
 }
 html {
-    font-size:14px;
+    font-size:18px;
 }
 
 body {
@@ -19,9 +23,10 @@ body {
     font-family:kayak,veranda,sans-serif;
     margin:0;
     padding:0;
+    font-size:1.5vmax;
 }
-ul.navbar {
-    font-family:jaapokki;
+ul.mynavbar {
+    font-family:kayak;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -33,11 +38,11 @@ ul.navbar {
     width: 100%;
     z-index:10000000000;
 }
-    li.navbar {
+    li.mynavbar {
         float: left;
 
     }
-    li.navbar a{
+    li.mynavbar a{
         display: block;
         color: white;
         text-align: center;
@@ -46,7 +51,7 @@ ul.navbar {
         font-size: calc(12px + .5vw);
 
     }
-    li.navbar a:hover:not(.active) {
+    li.mynavbar a:hover:not(.active) {
         background-color: #3B7EA1;
     }
 
@@ -86,7 +91,7 @@ ul.navbar {
     color: #003262;
     background-color:#B9D3B6;
     text-align: center;
-    font-family:bebas;
+    font-family:bebasbold;
 }
 div.maintitle h1 {
     font-size: calc(70px + .1vw);
@@ -102,7 +107,7 @@ div.maintitle h2 {
 h3 {
     text-align:center;
     margin-top: 1%;
-    font-size: calc(24px + .2vw);
+    font-size: 2.2vmax;
 }
 div.content h1 {
     font-size: calc(44px + .2vw);
@@ -155,13 +160,13 @@ div.img2col{
 img {
 }
 
-.bodylist{
-    text-align:left;
-    margin:auto;
-    margin-right:10px;
-    list-style-type: decimal;
-    font-size: calc(14px + .2vw);
-}
+    .bodylist{
+        text-align:left;
+        margin:auto;
+        margin-right:10px;
+        list-style-type: decimal;
+        font-size: calc(14px + .2vw);
+    }
 .bodylist li{
     margin-bottom:15px;
 }
