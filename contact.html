@@ -48,14 +48,11 @@
     <div class = "col-lg-9" align="center">
         <br>
         <div style="width:60vw;overflow: hidden">
-            <!-- <div class="embed-responsive embed-responsive-16by9" style="height:70vh">
-            <iframe class="embed-responsive-item"  src="assets/webCV.pdf"></iframe>
-            </div> -->
-            <!-- <div class='embed-responsive' style="height: 70vh">
-                <object data='assets/webCV.pdf' type='application/pdf' width='100%' height='100%'></object>
-            </div> -->
+
             <div id="cv" style="height: 70vh"> <a href="assets/webCV.pdf">Resume</a></div>
-            <script>PDFObject.embed("/assets/webCV.pdf", "#cv");</script>
+            <script>(PDFObject.embed("/assets/webCV.pdf", "#cv", {pdfOpenParams: {fallbackHTML: 
+                "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>"
+            }}));</script>
 
             <!-- <object data="url/pdftest.pdf"></object> -->
         </div>
