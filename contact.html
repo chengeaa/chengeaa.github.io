@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="pdfobject.js"></script>
     <meta charset="UTF-8">
     <title>About</title><link rel="shortcut icon" type="image/ico" href="https://chengeaa.github.io/favicon.ico">
 
@@ -46,17 +47,18 @@
     </div>
     <div class = "col-lg-9" align="center">
         <br>
-        <div style="width:60vw">
+        <div style="width:60vw;overflow: hidden">
             <!-- <div class="embed-responsive embed-responsive-16by9" style="height:70vh">
             <iframe class="embed-responsive-item"  src="assets/webCV.pdf"></iframe>
             </div> -->
-            <div class='embed-responsive' style="height: 70vh;padding-bottom: 200%">
+            <!-- <div class='embed-responsive' style="height: 70vh">
                 <object data='assets/webCV.pdf' type='application/pdf' width='100%' height='100%'></object>
-            </div>
+            </div> -->
+            <div id="cv" style="height: 70vh"></div>
+            <script>PDFObject.embed("/assets/webCV.pdf", "#cv");</script>
+
+            <!-- <object data="url/pdftest.pdf"></object> -->
         </div>
-            
-
-
     </div>
 </div>
 
