@@ -49,7 +49,7 @@
         <br>
         <div style="width:60vw;overflow: hidden">
 
-            <div id="cv" style="height: 70vh"> <a href="assets/webCV.pdf">Resume</a></div>
+            <div id="cv" style="height: 70vh"></div>
             <script>
                 PDFObject.embed("/assets/webCV.pdf", 
                     "#cv", 
@@ -58,11 +58,10 @@
                         fallbackLink: "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>"
 
                         }
-                    }
+                    };
                 );
             </script>
 
-            <!-- <object data="url/pdftest.pdf"></object> -->
         </div>
     </div>
 </div>
