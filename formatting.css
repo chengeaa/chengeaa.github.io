@@ -14,6 +14,14 @@
     font-family:kayak;
     src: url(assets/kayak.woff);
 }
+@media (max-width: 768px) {
+
+  [class*="col-"] {
+      margin-bottom: 15px;
+  }
+
+}
+    
 html {
     font-size:18px;
 }
@@ -23,7 +31,7 @@ body {
     font-family:kayak,veranda,sans-serif;
     margin:0;
     padding:0;
-    font-size:1.5vmax;
+    font-size:1.8vmax;
 }
 ul.mynavbar {
     font-family:kayak;
@@ -55,7 +63,7 @@ ul.mynavbar {
         background-color: #3B7EA1;
     }
 
-    .active {
+    .navactive {
         background-color: #FDB515;
     }
 
@@ -107,16 +115,16 @@ div.maintitle h2 {
 h3 {
     text-align:center;
     margin-top: 1%;
-    font-size: 2.2vmax;
+    font-size: 2.5vmax;
 }
-div.content h1 {
-    font-size: calc(44px + .2vw);
+h1 {
+    font-size: 3.5vmax;
     margin:10px;
 }
-.body {
+/*.body {
     margin: auto;
     font-size: calc(18px + .2vw);
-}
+}*/
 
 div.heading{
     margin:0;
@@ -160,19 +168,19 @@ div.img2col{
 img {
 }
 
-    .bodylist{
-        text-align:left;
-        margin:auto;
-        margin-right:10px;
-        list-style-type: decimal;
-        font-size: calc(14px + .2vw);
-    }
-.bodylist li{
+/*.bodylist{
+    text-align:left;
+    margin:auto;
+    margin-right:10px;
+    list-style-type: decimal;
+    font-size: calc(14px + .2vw);
+}*/
+/*.bodylist li{
     margin-bottom:15px;
-}
+}*/
 
 .bodylist ul{
-    font-size: calc(12px + .2vw);
+    font-size: calc(1vmax);
 }
 div.content{
     text-align:center;

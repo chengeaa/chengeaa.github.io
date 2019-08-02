@@ -19,13 +19,13 @@
  <script>
   $(function(){
     $("#nav-placeholder").load("nav.html", function() {
-      $("ul.mynavbar").find("li:nth-child(7)").addClass("active");
+      $("ul.mynavbar").find("li:nth-child(7)").addClass("navactive");
       });
   });
 </script>
 <div class = "maintitle">
     <h1>
-        Contact
+        About Me 
     </h1>
 </div>
 <div class="container-fluid">
@@ -37,27 +37,52 @@
             </h1>
         </div>
         <div class = "body">
-            <p>
-                <b>Email:</b> chenge (at) utexas (dot) edu
-            </p>
-            <p>
-                <b>LinkedIn:</b> /in/erikscheng
-            </p>
+            <div id="social-container">
+                <a href="https://linkedin.com/in/erikscheng"><img src="assets/linkedin.png" width="40px" height="40px" title="LinkedIn"></a>
+                <a href="https://github.com/chengeaa"><img src="assets/github.png" width="40px" height="40px" title="GitHub"></a>
+                <a href="https://www.quora.com/profile/Erik-Cheng"><img src="assets/quora.png" width="40px" height="40px" title="Quora"></a>
+            </div>
         </div>
     </div>
-    <div class = "col-lg-9" align="center">
-        <br>
-        <div style="width:60vw;overflow: hidden">
 
-            <div id="cv" style="height: 70vh"></div>
+
+    <div class = "col-lg-9">
+        <div style="margin: auto; display: block">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Data Science</a></li>
+                <li><a data-toggle="tab" href="#menu1">Chemistry</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <div style="width:100%;height:1vw">
+                        <div id="dscv" style="height: 70vh"></div>   
+                    </div>
+                </div>
+                <div id="menu1" class="tab-pane fade active">
+                    <div style="width:100%">
+                        <div id="chemcv" style="height: 70vh"></div>
+                    </div>
+                </div>
+            </div>
             <script>
                 var options = {
-                        fallbackLink: "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>"
+                        fallbackLink: "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>",
+                        page: 1,
+                        pdfOpenParams: {
+                            navpanes: 1,
+                            view:"FitH",
+                            pagemode: "thumbs"
+                        }
                     };
-                PDFObject.embed("/assets/webCV.pdf", "#cv", options);
-            </script>
-
+                PDFObject.embed("/assets/dsresume.pdf", "#dscv", options);
+                PDFObject.embed("/assets/webCV.pdf", "#chemcv");
+            </script>    
         </div>
+        
+    </div>
+
+
+
     </div>
 </div>
 

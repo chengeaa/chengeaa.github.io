@@ -20,7 +20,7 @@
  <script>
   $(function(){
     $("#nav-placeholder").load("nav.html", function() {
-      $("ul.mynavbar").find("li:nth-child(3)").addClass("active");
+      $("ul.mynavbar").find("li:nth-child(3)").addClass("navactive");
       });
   });
 </script>
@@ -80,12 +80,15 @@
         </div>
     </div>
     <div class = "clearfix"></div>
+    <div>
+        <br>
+    </div>
     <div class = "heading">
-        <h1>
+        <h1 style="text-align: left;border-bottom-style:solid;border-bottom-width: thin">
             Publications and Posters:
         </h1>
     </div>
-    <div>
+    <div style="text-align: left">
             <ol class = "bodylist">
                 <li>
                     Rizzuto, A. M., <b>Cheng, E. S.</b>, Lam, R. K., Saykally, R. J. "
@@ -145,23 +148,26 @@
                         <a href = "https://chengeaa.github.io/assets/uniposter.pdf"> “Chemical Analysis of MoS2 Nanoparticles Formed by Ultrasonic Exfoliation” </a>
                     UNI Undergraduate Research Symposium (2013)
                     <ul>
-                        <b>Abstract:</b>MoS2 has been observed to be a compound with favorable electronic properties., with possible applications in small electronics. However, we wanted to analyze the chemical compositions of the samples that we’ve been producing because there have been electric inconsistencies  observed. The chemical study, therefore, is to study exactly what the chemical compositions of these MoS2 nanostructures turn out to be after their manufacturing process, and the correlation of that to the observed electrical properties.
+                        <b>Abstract:</b> MoS2 has been observed to be a compound with favorable electronic properties., with possible applications in small electronics. However, we wanted to analyze the chemical compositions of the samples that we’ve been producing because there have been electric inconsistencies  observed. The chemical study, therefore, is to study exactly what the chemical compositions of these MoS2 nanostructures turn out to be after their manufacturing process, and the correlation of that to the observed electrical properties.
                     </ul>
                 </li>
             </ol>
     </div>
      <div class = "heading">
-        <h1>
+        <h1 style="text-align:left;border-bottom-style:solid;border-bottom-width: thin">
             Coursework
         </h1>
     </div>
-    <div>
+    <div style="text-align: left">
+        <div class = "col-lg-6">
             <ol class = "bodylist">
-                <li>
-                   Taken at UC Berkeley
+                Taken at UC Berkeley
                     <ul>
                         <li>
                             Chemistry 4A: General Chemistry, Chemistry 4B: Analytical and Bio-Chemistry
+                        </li>
+                        <li>
+                            Engineering 45: Properties of Materials
                         </li>
                         <li>
                             Chemistry 112A/B: Advanced Organic Chemistry (two semesters)
@@ -176,7 +182,7 @@
                             Chemistry 120B: Physical Chemistry (Statistical Mechanics)
                         </li>
                         <li>
-                            Chemistry 221A: Graduate Quantum Mechanics
+                            Chemistry 221A: (Graduate) Quantum Mechanics
                         </li>
                         <li>
                             Chemistry 125: Physical Chemistry Laboratory
@@ -188,20 +194,29 @@
                             Chemistry 195: Special Topics (Introduction to Computational Chemistry)
                         </li>
                     </ul>
-                </li>
-                <li>
-                    Taken at UT Austin
+        </div>
+        <div class="col-lg-6">
+            <ol class="bodylist">
+                Taken at UT Austin
                     <ul>
                         <li>
-                            CH 382L: Advanced Physical Chemistry: Statistical Mechanics (to be taken Fall 2018)
+                            CH 382L: (Graduate) Advanced Physical Chemistry: Statistical Mechanics 
                         </li>
                         <li>
-                            CHE 391S: Molecular Simulation of Materials (to be taken Fall 2018)
+                            CHE 391S: (Graduate) Molecular Simulation of Materials
+                        </li>
+                        <li>
+                            CHE 384T: (Graduate) Nanomaterials Chemistry and Engineering
+                        </li>
+                        <li>
+                            ME 386P1: (Graduate) Introduction to Phase Transformations
+                        </li>
+                        <li>
+                            ME 386P4: (Graduate) Solid State Properties of Materials
                         </li>
                     </ul>
-                </li>
             </ol>
-
+        </div>
     </div>
 </div>
 
