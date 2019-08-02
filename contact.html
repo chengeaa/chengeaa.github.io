@@ -51,11 +51,8 @@
 
             <div id="cv" style="height: 70vh"></div>
             <script>
-                var options = {pdfOpenParams: {
-                        fallbackHTML: "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>",
+                var options = {
                         fallbackLink: "<p>This browser does not support inline PDFs. You can find my resume by clicking this link instead: <a href='[url]'>Download PDF</a></p>"
-
-                        }
                     };
                 PDFObject.embed("/assets/webCV.pdf", "#cv", options);
             </script>
