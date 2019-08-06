@@ -14,13 +14,13 @@
     font-family:kayak;
     src: url(assets/kayak.woff);
 }
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
 
   [class*="col-"] {
       margin-bottom: 15px;
   }
 
-}
+}*/
     
 /*html {
     font-size:18px;
