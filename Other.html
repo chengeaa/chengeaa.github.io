@@ -11,23 +11,31 @@
     <title>Other</title>
 </head>
 <body>
-<div id="nav-placeholder">
 
-</div>
-
- <script>
-  $(function(){
-    $("#nav-placeholder").load("nav.html", function() {
-      $("ul.mynavbar").find("li:nth-child(6)").addClass("navactive");
-      });
-  });
-</script>
-<div class = "maintitle">
-    <h1>
-        Other Fun Things
-    </h1>
-</div>
 <div class = "container-fluid">
+    <div class="row">
+        <div id="nav-placeholder">
+
+        </div>
+        <script>
+          $(function(){
+            $("#nav-placeholder").load("nav.html", function() {
+              $("ul.mynavbar").find("li:nth-child(6)").addClass("navactive");
+              });
+          });
+        </script>
+    </div>
+    <div class="row-fluid">
+        <div class="col-lg-12-fluid">
+            <div class = "maintitle">
+            <h1>
+                Other Fun Things
+            </h1>
+        </div>
+        </div>
+        
+                
+    </div>
     <div class="row">
         <div class="col-lg-6">
             <div class = "heading">
