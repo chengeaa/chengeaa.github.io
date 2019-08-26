@@ -11,31 +11,23 @@
     <title>Other</title>
 </head>
 <body>
+<div id="nav-placeholder">
 
+</div>
+
+ <script>
+  $(function(){
+    $("#nav-placeholder").load("nav.html", function() {
+      $("ul.mynavbar").find("li:nth-child(6)").addClass("navactive");
+      });
+  });
+</script>
+<div class = "maintitle">
+    <h1>
+        Other Fun Things
+    </h1>
+</div>
 <div class = "container-fluid">
-    <div class="row">
-        <div id="nav-placeholder">
-
-        </div>
-        <script>
-          $(function(){
-            $("#nav-placeholder").load("nav.html", function() {
-              $("ul.mynavbar").find("li:nth-child(6)").addClass("navactive");
-              });
-          });
-        </script>
-    </div>
-    <div class="row-fluid">
-        <div class="col-lg-12-fluid">
-            <div class = "maintitle">
-            <h1>
-                Other Fun Things
-            </h1>
-        </div>
-        </div>
-        
-                
-    </div>
     <div class="row">
         <div class="col-lg-6">
             <div class = "heading">
@@ -60,7 +52,9 @@
                 </h3>
             </div>
             <div>
-                <a href="https://mybinder.org/v2/gist/chengeaa/0f5f079c2fcbe975a5a3a1d07ed5799a/master"><img src="https://mybinder.org/badge_logo.svg"></a>   
+                Inspired by <a href="https://www.youtube.com/watch?v=QAja2jp1VjE">this video.</a>
+                If the widget doesn't load below, <a href="https://mybinder.org/v2/gist/chengeaa/0f5f079c2fcbe975a5a3a1d07ed5799a/master"> click me  </a> to view the demo:
+                <!-- <a href="https://mybinder.org/v2/gist/chengeaa/0f5f079c2fcbe975a5a3a1d07ed5799a/master"><img src="https://mybinder.org/badge_logo.svg"></a>    -->
             </div>
             <div>
                 <iframe src="assets/dots.html" style="width:80%;height:70vh;margin:auto" frameBorder="0"></iframe>
