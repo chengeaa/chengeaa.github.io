@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+
+
+<title>dots</title>
+
+
+  <div class="output_subarea output_widget_view ">
+    <button class="js-nbinteract-widget">
+      Loading widgets...
+    </button>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+  </div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
+
+
+
+<!-- Loads nbinteract package -->
+<script src="https://unpkg.com/nbinteract-core" async></script>
+<script>
+  (function setupNbinteract() {
+    // If NbInteract hasn't loaded, wait one second and try again
+    if (window.NbInteract === undefined) {
+      setTimeout(setupNbinteract, 1000)
+      return
+    }
+
+    var interact = new window.NbInteract({
+      spec: 'chengeaa/dots.ipynb/master',
+      baseUrl: 'https://mybinder.org',
+      provider: 'gist',
+    })
+    interact.prepare()
+
+    window.interact = interact
+  })()
+</script>
+    </div>
+  </div>
+</body>
