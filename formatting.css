@@ -180,6 +180,8 @@ img {
 }*/
 
 .bodylist ul{
+    padding:3vmax;
+    margin:auto;
     font-size: calc(1vmax);
 }
 div.content{
