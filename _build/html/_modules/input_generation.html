@@ -101,7 +101,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Produces a collection of structures with adsorbate randomly placed on </span>
 <span class="sd">    given slab. </span>
-<span class="sd">    Writes .gen outputs to desired directory</span>
+<span class="sd">    Writes (.gen or vasp) outputs to desired directory</span>
 <span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        adsorbate: Atoms obj of adsorbate</span>
@@ -126,13 +126,71 @@
 
             <span class="c1"># construct and write</span>
             <span class="n">add_adsorbate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">adsorbate</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span>  <span class="n">h</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="n">p</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-            <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">),</span> <span class="n">s</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">shallow</span> <span class="k">else</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">d</span> <span class="o">*</span> <span class="n">runsPerDir</span> <span class="o">+</span> <span class="n">run</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;gen&#39;</span><span class="p">:</span>
-                <span class="n">gen</span><span class="o">.</span><span class="n">write_gen</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="o">.</span><span class="n">gen</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">),</span> <span class="n">s</span><span class="p">)</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">shallow</span> <span class="k">else</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">d</span> <span class="o">*</span> <span class="n">runsPerDir</span> <span class="o">+</span> <span class="n">run</span><span class="p">)</span>
+                <span class="n">gen</span><span class="o">.</span><span class="n">write_gen</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;vasp&#39;</span><span class="p">:</span>
-                <span class="n">vasp</span><span class="o">.</span><span class="n">write_vasp</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;POSCAR</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">shallow</span> <span class="k">else</span> <span class="s2">&quot;POSCAR</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">d</span> <span class="o">*</span> <span class="n">runsPerDir</span> <span class="o">+</span> <span class="n">run</span><span class="p">)</span>
+                <span class="n">vasp</span><span class="o">.</span><span class="n">write_vasp</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span>
+                        <span class="n">sort</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">vasp5</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;kind should be from (vasp, gen)&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="randomGridMultiple"><a class="viewcode-back" href="../index.html#input_generation.randomGridMultiple">[docs]</a><span class="k">def</span> <span class="nf">randomGridMultiple</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">adsorbate</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">outputDir</span> <span class="o">=</span> <span class="s2">&quot;tempout/&quot;</span><span class="p">,</span> 
+        <span class="n">numDirs</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">runsPerDir</span> <span class="o">=</span> <span class="mi">17</span><span class="p">,</span> <span class="n">shallow</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;gen&#39;</span><span class="p">,</span> <span class="n">minDist</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produces a collection of structures (of size ``numDirs`` * ``runsperDir``;</span>
+<span class="sd">    each has n adsorbates randomly placed on given slab. </span>
+<span class="sd">    Writes (.gen or vasp) outputs to desired directory</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        n: number of adsorbates per slab</span>
+<span class="sd">        adsorbate: Atoms obj of adsorbate</span>
+<span class="sd">        slab: Atoms obj of slab</span>
+<span class="sd">        h: height of adsorbate (above max slab position)</span>
+<span class="sd">        outputDir: Path (str) for desired output location.</span>
+<span class="sd">        numDirs: Number of batches. Defaults to 10.</span>
+<span class="sd">        runsPerDir: Number of sims per batch. Defaults to 17.</span>
+<span class="sd">        shallow: If all runs to be at one directory level. Defaults to False.</span>
+<span class="sd">        kind: output desired, from (gen, vasp). Defaults to gen. </span>
+<span class="sd">        minDist: minimum distance between placed adsorbates (in Å)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">429</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numDirs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runsPerDir</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span> 
+                <span class="c1"># generate random positions with dummy z required (3)</span>
+                <span class="n">pnew</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">cartesian_positions</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> 
+                <span class="k">if</span> <span class="n">positions</span><span class="p">:</span>
+                    <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">pnew</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">pnew</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dists</span> <span class="o">&lt;</span> <span class="n">minDist</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                <span class="n">positions</span> <span class="o">+=</span> <span class="p">[</span><span class="n">pnew</span><span class="p">]</span>
+                    
+            <span class="c1"># construct and write</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+                <span class="n">add_adsorbate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">adsorbate</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span>  <span class="n">h</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="n">p</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;gen&#39;</span><span class="p">:</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">shallow</span> <span class="k">else</span> <span class="s2">&quot;input</span><span class="si">{}</span><span class="s2">.gen&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">d</span> <span class="o">*</span> <span class="n">runsPerDir</span> <span class="o">+</span> <span class="n">run</span><span class="p">)</span>
+                <span class="n">gen</span><span class="o">.</span><span class="n">write_gen</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;vasp&#39;</span><span class="p">:</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;POSCAR</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">shallow</span> <span class="k">else</span> <span class="s2">&quot;POSCAR</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">d</span> <span class="o">*</span> <span class="n">runsPerDir</span> <span class="o">+</span> <span class="n">run</span><span class="p">)</span>
+                <span class="n">vasp</span><span class="o">.</span><span class="n">write_vasp</span><span class="p">(</span><span class="n">outputDir</span> <span class="o">+</span> <span class="n">outname</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span>
                         <span class="n">sort</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">vasp5</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
