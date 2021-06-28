@@ -215,7 +215,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">masses</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">mass</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">POSCAR</span><span class="p">]</span>
     <span class="n">KE</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">dof</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">velos</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">nfixed</span>   <span class="c1">#natoms * 3 - 6 (fixed atoms) * 3</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">velos</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">nfixed</span>   <span class="c1">#natoms * 3 - (fixed atoms) * 3</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">velos</span><span class="p">):</span>
         <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">v</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">masses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
