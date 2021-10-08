@@ -47,6 +47,7 @@
             
   <h1>Source code for krr_utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">dscribe.descriptors</span> <span class="kn">import</span> <span class="n">SOAP</span>
+<span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">add_adsorbate</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
 <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Atoms</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -66,11 +67,12 @@
                 <span class="n">maxz</span> <span class="o">=</span> <span class="n">_z</span> 
     <span class="k">return</span> <span class="n">maxz</span></div>
 
-<div class="viewcode-block" id="predictz"><a class="viewcode-back" href="../index.html#krr_utils.predictz">[docs]</a><span class="k">def</span> <span class="nf">predictz</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zmodel</span><span class="p">,</span> <span class="n">species</span><span class="p">):</span>
+<div class="viewcode-block" id="predictz"><a class="viewcode-back" href="../index.html#krr_utils.predictz">[docs]</a><span class="k">def</span> <span class="nf">predictz</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zmodel</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    surf: *bare* substrate</span>
 <span class="sd">    x, y: position at which to place adsorbate</span>
 <span class="sd">    zmodel: model object (which takes in a dataframe that&#39;s n*p, p = #SOAP features)</span>
+<span class="sd">    offset: boolean indicating if the model is based on surface offset or absolute height</span>
 
 <span class="sd">    returns a predicted z value, based on sum of regionalMaxHeight and zmodel outcome</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -78,10 +80,13 @@
     <span class="n">surf</span> <span class="o">=</span> <span class="n">surf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">add_adsorbate</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 
-    <span class="n">surf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rulez</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span> <span class="c1"># use rulez for initial guess for z model</span>
+    <span class="n">surf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rulez</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="c1"># use rulez for initial guess for z model</span>
 
     <span class="n">X</span> <span class="o">=</span> <span class="n">getSOAPs</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="n">surf</span><span class="p">}),</span> <span class="n">species</span> <span class="o">=</span> <span class="n">species</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#reshape because just one sample</span>
-    <span class="n">predz</span> <span class="o">=</span> <span class="n">regionalMaxHeight</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span> <span class="o">+</span> <span class="n">zmodel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
+        <span class="n">predz</span> <span class="o">=</span> <span class="n">regionalMaxHeight</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">zmodel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">predz</span> <span class="o">=</span> <span class="n">zmodel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
     <span class="k">return</span> <span class="n">predz</span></div>
 
 

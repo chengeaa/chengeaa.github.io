@@ -47,7 +47,10 @@
             
   <h1>Source code for analysis</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">ase.neighborlist</span> <span class="kn">import</span> <span class="n">NewPrimitiveNeighborList</span><span class="p">,</span> <span class="n">natural_cutoffs</span>
-<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">readStructs</span>
+<span class="kn">from</span> <span class="nn">researchscripts.utils</span> <span class="kn">import</span> <span class="n">readStructs</span><span class="p">,</span> <span class="n">KE</span><span class="p">,</span> <span class="n">vAngle</span>
+<span class="kn">from</span> <span class="nn">researchscripts.structure</span> <span class="kn">import</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">getFragIndices</span>
+<span class="kn">from</span> <span class="nn">ase.geometry.analysis</span> <span class="kn">import</span> <span class="n">Analysis</span>
+<span class="kn">from</span> <span class="nn">researchscripts.utils</span> <span class="kn">import</span> <span class="n">readStructs</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -123,7 +126,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pass in `name` and `shallow` kwargs if needed for utils.readStruct function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">geometries</span> <span class="o">=</span> <span class="n">readStructs</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">geometries</span> <span class="o">=</span> <span class="n">readStructs</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="s1">&#39;geom&#39;</span><span class="p">]</span>
     <span class="n">analyses</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">Analysis</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">geometries</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="n">analyses</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">analyses</span><span class="p">)</span>
 
@@ -163,34 +166,30 @@
     <span class="n">fragmentData</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">datadir</span> <span class="o">+</span> <span class="s2">&quot;fragdata.csv&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">fragmentData</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
 
-
     <span class="c1">###################  </span>
     <span class="c1">### bond counts ###</span>
     <span class="c1">###################</span>
     
-    <span class="n">totalbonds</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">bondcounts</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">e1</span> <span class="o">=</span> <span class="s2">&quot;Si&quot;</span>
-    <span class="n">e2</span> <span class="o">=</span> <span class="s2">&quot;N&quot;</span>
-    <span class="n">form</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">analysis</span> <span class="ow">in</span> <span class="n">analyses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">totalbonds</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])]</span>
-            <span class="n">bondcounts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span>  <span class="nb">len</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-    <span class="n">totalbonds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">totalbonds</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">form</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;percent runs with </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1"> bond formation = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">totalbonds</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">170</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;average number of final </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1"> bonds = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">totalbonds</span><span class="p">)</span><span class="o">/</span><span class="mi">170</span><span class="p">))</span>
-    <span class="c1"># plt.hist(totalbonds, bins = np.arange(0, np.max(totalbonds) + 1))</span>
-    <span class="c1"># plt.hist(totalbonds, bins = np.arange(5, 14))</span>
-    <span class="k">if</span> <span class="n">form</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;distribution of # of </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1"> bonds formed&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">));</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;distribution of # of </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1"> bonds count&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">));</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>   
+    <span class="c1"># totalbonds = []</span>
+    <span class="c1"># bondcounts = {}</span>
+    <span class="c1"># for key, analysis in analyses.items(): </span>
+        <span class="c1"># try:</span>
+            <span class="c1"># totalbonds += [len(analysis.get_bonds(e1, e2, unique = True)[0])]</span>
+            <span class="c1"># bondcounts[key] =  len(analysis.get_bonds(e1, e2, unique = True)[0])</span>
+        <span class="c1"># except:</span>
+            <span class="c1"># print(&#39;error on {}&#39;.format(key))</span>
+    <span class="c1"># totalbonds = np.array(totalbonds)</span>
+    <span class="c1"># if form:</span>
+        <span class="c1"># print(&#39;percent runs with {}-{} bond formation = {}&#39;.format(e1, e2, np.sum(totalbonds &gt; 0)/170))</span>
+    <span class="c1"># else:</span>
+        <span class="c1"># print(&#39;average number of final {}-{} bonds = {}&#39;.format(e1, e2, np.sum(totalbonds)/170))</span>
+    <span class="c1"># # plt.hist(totalbonds, bins = np.arange(0, np.max(totalbonds) + 1))</span>
+    <span class="c1"># # plt.hist(totalbonds, bins = np.arange(5, 14))</span>
+    <span class="c1"># if form:</span>
+        <span class="c1"># plt.title(&#39;distribution of # of {}-{} bonds formed&#39;.format(e1, e2));</span>
+    <span class="c1"># else:</span>
+        <span class="c1"># plt.title(&#39;distribution of # of {}-{} bonds count&#39;.format(e1, e2));</span>
+    <span class="c1"># plt.show()   </span>
 
     <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
     <span class="n">elems</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Si&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;Ar&quot;</span><span class="p">]</span>
@@ -281,6 +280,181 @@
      <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
     <span class="p">})</span>
     <span class="k">return</span> <span class="n">result</span></div>
+
+<span class="k">def</span> <span class="nf">getFragStats</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">fragments</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">trajVelos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">])</span> <span class="c1"># Read velocities; shape is (T, N, 3)</span>
+    <span class="c1"># Get the velocities of each fragment at each time point</span>
+    <span class="n">fragVelosByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">frags</span> <span class="ow">in</span> <span class="n">fragments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">pointVelos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">frag</span> <span class="ow">in</span> <span class="n">frags</span><span class="p">:</span>
+            <span class="n">velo</span> <span class="o">=</span> <span class="n">trajVelos</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">frag</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">pointVelos</span> <span class="o">+=</span> <span class="p">[</span><span class="n">velo</span><span class="p">]</span>
+        <span class="n">fragVelosByPoint</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointVelos</span>
+
+    <span class="c1"># Collect the relevant statistics: KE, p, angles</span>
+    <span class="n">fragAnglesByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fragPositionsByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fragMomentaByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fragKEByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fragLabelByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1">#     print(fragVelosByPoint)</span>
+<span class="c1">#     print(fragsByPoint)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">velos</span> <span class="ow">in</span> <span class="n">fragVelosByPoint</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> <span class="c1"># `velos` at each point is a list of velocities for each fragment</span>
+        <span class="n">pointAngles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pointMomenta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pointKE</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pointLabel</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pointPos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">velo</span><span class="p">,</span> <span class="n">frag</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">velos</span><span class="p">,</span> <span class="n">fragments</span><span class="p">[</span><span class="n">key</span><span class="p">]):</span>
+            <span class="n">_velo</span> <span class="o">=</span> <span class="n">velo</span><span class="o">/</span><span class="mi">1000</span> <span class="c1"># convert to Å/fs</span>
+
+            <span class="c1"># Get label</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">frag</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()</span>
+
+            <span class="c1"># Get average fragment position (x,y,z)</span>
+            <span class="n">_positions</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="n">frag</span><span class="p">]</span><span class="o">.</span><span class="n">positions</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_positions</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># Masses should be the same for all timepoints within a trajectory,</span>
+            <span class="c1"># but I&#39;ll just use the Point for temporary convenience</span>
+            <span class="n">masses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atom</span><span class="o">.</span><span class="n">mass</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="n">frag</span><span class="p">]])</span>
+
+            <span class="c1"># Calculate average velocities by component and by atom</span>
+            <span class="n">_fragVelos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_velo</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># average velocity across each dimension</span>
+            <span class="n">_atomVelos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">_velo</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="c1">#v_i = \sqrt{vx_i**2 + vy_i**2 + vz_i**2}</span>
+
+            <span class="c1"># Calculate kinetic energies (per atom, per fragment)</span>
+            <span class="n">atomKEs</span> <span class="o">=</span> <span class="n">KE</span><span class="p">(</span><span class="n">_atomVelos</span><span class="p">,</span> <span class="n">masses</span><span class="p">)</span> <span class="c1">#&lt;1/2 * \sum m_i(vx^2+vy^2+vz^2)^(1/2)</span>
+            <span class="n">avgKE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atomKEs</span><span class="p">)</span>
+
+            <span class="c1"># Calculate momenta (per atom, per fragment) - magnitude only</span>
+            <span class="n">atomMomenta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">_atomVelos</span> <span class="o">*</span> <span class="n">masses</span><span class="p">)</span>
+            <span class="n">avgMomentum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atomMomenta</span><span class="p">)</span>
+
+            <span class="c1"># Calculate fragment angle</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">vAngle</span><span class="p">(</span><span class="n">_fragVelos</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;point, fragment: </span><span class="si">{}</span><span class="s1"> (index </span><span class="si">{}</span><span class="s1">) - </span><span class="si">{}</span><span class="s1"> (indices: </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="n">frag</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;velocities: </span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_velo</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;average velocities (componentwise): </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_fragVelos</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;average velocities (atomwise): </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_atomVelos</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;T_i = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atomKEs</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;T&gt; = </span><span class="si">{:.2E}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avgKE</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p_i: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atomMomenta</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avgMomentum</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;theta = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">()</span>
+            <span class="n">pointAngles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">angle</span><span class="p">]</span>
+            <span class="n">pointMomenta</span> <span class="o">+=</span> <span class="p">[</span><span class="n">avgMomentum</span><span class="p">]</span>
+            <span class="n">pointKE</span> <span class="o">+=</span> <span class="p">[</span><span class="n">avgKE</span><span class="p">]</span>
+            <span class="n">pointLabel</span> <span class="o">+=</span> <span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="n">pointPos</span> <span class="o">+=</span> <span class="p">[</span><span class="n">position</span><span class="p">]</span>
+        <span class="n">fragAnglesByPoint</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointAngles</span>
+        <span class="n">fragPositionsByPoint</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointPos</span>
+        <span class="n">fragMomentaByPoint</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointMomenta</span>
+        <span class="n">fragKEByPoint</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointKE</span>
+    <span class="n">dfPoint</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;timeIndex&quot;</span> <span class="p">:</span> <span class="n">indices</span><span class="p">,</span>
+        <span class="s2">&quot;fragIndices&quot;</span> <span class="p">:</span> <span class="n">fragments</span><span class="p">,</span>
+        <span class="s2">&quot;fragPositions&quot;</span><span class="p">:</span> <span class="n">fragPositionsByPoint</span><span class="p">,</span>
+        <span class="s2">&quot;fragVelos&quot;</span><span class="p">:</span> <span class="n">fragVelosByPoint</span><span class="p">,</span>
+        <span class="s2">&quot;fragLabels&quot;</span><span class="p">:</span> <span class="n">fragLabelByPoint</span><span class="p">,</span>
+        <span class="s2">&quot;angle&quot;</span><span class="p">:</span> <span class="n">fragAnglesByPoint</span><span class="p">,</span>
+        <span class="s2">&quot;KE&quot;</span><span class="p">:</span> <span class="n">fragKEByPoint</span><span class="p">,</span>
+        <span class="s2">&quot;momentum&quot;</span><span class="p">:</span> <span class="n">fragMomentaByPoint</span>
+    <span class="p">})</span>
+
+    <span class="n">dfTraj</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">dfPoint</span><span class="p">,</span> <span class="n">dfTraj</span>
+
+<div class="viewcode-block" id="getFragsTraj"><a class="viewcode-back" href="../index.html#analysis.getFragsTraj">[docs]</a><span class="k">def</span> <span class="nf">getFragsTraj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">exclusions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CF4&#39;</span><span class="p">,</span> <span class="s1">&#39;Ar&#39;</span><span class="p">,</span> <span class="s1">&#39;CH3F&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns two lists of lists:</span>
+<span class="sd">    - list of lists, each list is a fragment</span>
+<span class="sd">    - list of labels corresponding to each fragment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fragIndices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fragLabels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+        <span class="n">frags</span> <span class="o">=</span> <span class="n">getFragIndices</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame</span><span class="p">[</span><span class="n">frag</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()</span> <span class="k">for</span> <span class="n">frag</span> <span class="ow">in</span> <span class="n">frags</span><span class="p">]</span>
+        <span class="n">fragIndices</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">frags</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclusions</span><span class="p">]]</span>
+        <span class="n">fragLabels</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">frags</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclusions</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">fragIndices</span><span class="p">,</span> <span class="n">fragLabels</span></div>
+
+
+<div class="viewcode-block" id="getFragsByPoint"><a class="viewcode-back" href="../index.html#analysis.getFragsByPoint">[docs]</a><span class="k">def</span> <span class="nf">getFragsByPoint</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">ArIndex</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">veloConversionFactor</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">exclusions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CF4&#39;</span><span class="p">,</span> <span class="s1">&#39;Ar&#39;</span><span class="p">,</span> <span class="s1">&#39;CH3F&#39;</span><span class="p">],</span> 
+        <span class="n">KEcutoff</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">numPointstoCheck</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">keyPoints</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;maxfrag&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">],</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produces a list of lists for each point, each parent being list of fragments and child being list of</span>
+<span class="sd">    atom indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pointIndices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">trajVelos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">])</span> <span class="c1"># Read velocities; shape is (T, N, 3)</span>
+
+    <span class="c1"># Get argon KEs over traj</span>
+    <span class="n">arVelos</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="n">ArIndex</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">trajVelos</span><span class="p">]</span>
+    <span class="n">arVeloTotals</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arVelos</span><span class="p">]</span>
+    <span class="n">arKEs</span> <span class="o">=</span> <span class="p">[</span><span class="n">KE</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">veloConversionFactor</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arVeloTotals</span><span class="p">]</span>
+
+    <span class="c1"># Determine indices for each key point</span>
+    <span class="n">pointIndices</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pointIndices</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># Check for index with maximum fragmentation post-collision</span>
+    <span class="n">checkedPoints</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">maxFrags</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">maxFragIndex</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arKE</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arKEs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arKE</span> <span class="o">&lt;</span> <span class="n">arKEs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">KEcutoff</span><span class="p">:</span> <span class="c1"># Fragment count begins when Ar KE drops below 0.05 of starting KE</span>
+            <span class="k">if</span> <span class="n">checkedPoints</span> <span class="o">&lt;</span> <span class="n">numPointstoCheck</span><span class="p">:</span>
+                <span class="n">checkedPoints</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># This is kind of inefficient but we&#39;re gonna do it anyway</span>
+                <span class="n">fragIndices</span> <span class="o">=</span> <span class="n">getFragIndices</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">frags</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fragIndices</span> <span class="k">if</span>
+                                   <span class="n">traj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclusions</span><span class="p">]</span>
+                <span class="n">numFrags</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frags</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;checking point &#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fragment indices: &#39;</span><span class="p">,</span> <span class="n">frags</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fragment labels: &#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">frags</span><span class="p">])</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of fragments: &#39;</span><span class="p">,</span> <span class="n">numFrags</span><span class="p">)</span>
+
+                <span class="c1"># Stop or update</span>
+                <span class="k">if</span> <span class="n">numFrags</span> <span class="o">&lt;</span> <span class="n">maxFrags</span><span class="p">:</span>
+                    <span class="k">break</span> <span class="c1"># Stop searching once recombination begins happening</span>
+                <span class="k">if</span> <span class="n">numFrags</span> <span class="o">&gt;</span> <span class="n">maxFrags</span><span class="p">:</span>
+                    <span class="n">maxFragIndex</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="n">maxFrags</span> <span class="o">=</span> <span class="n">numFrags</span>
+
+    <span class="c1"># Update maxfrag entry after checking the postcollision points for max fragmentation</span>
+
+    <span class="n">pointIndices</span><span class="p">[</span><span class="s1">&#39;maxfrag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">maxFragIndex</span>
+
+    <span class="c1"># Check that all keyPoints have an index</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keyPoints</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pointIndices</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not all keys in keyPoints have corresponding value in pointIndices&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Obtain fragment indices</span>
+    <span class="n">fragsByPoint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">keyPoints</span><span class="p">:</span>
+        <span class="n">pointIndex</span> <span class="o">=</span> <span class="n">pointIndices</span><span class="p">[</span><span class="n">P</span><span class="p">]</span>
+        <span class="n">fragIndices</span> <span class="o">=</span> <span class="n">getFragIndices</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="n">pointIndex</span><span class="p">])</span>
+
+        <span class="n">fragsByPoint</span><span class="p">[</span><span class="n">P</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fragIndices</span> <span class="k">if</span>
+                           <span class="n">traj</span><span class="p">[</span><span class="n">pointIndex</span><span class="p">][</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclusions</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;indices considered: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pointIndices</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fragment indices:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">fragsByPoint</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pointIndices</span><span class="p">,</span> <span class="n">fragsByPoint</span></div>
 </pre></div>
 
           </div>

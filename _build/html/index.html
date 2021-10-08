@@ -78,6 +78,21 @@ Returns pd Series with the subsetted bond counts of (A, elem) where A should be 
 </dd></dl>
 
 <dl class="function">
+<dt id="analysis.getFragsByPoint">
+<code class="descclassname">analysis.</code><code class="descname">getFragsByPoint</code><span class="sig-paren">(</span><em>traj, points, ArIndex=-1, veloConversionFactor=0.001, exclusions=['CF4', 'Ar', 'CH3F'], KEcutoff=0.05, numPointstoCheck=10, keyPoints=['start', 'maxfrag', 'end'], verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/analysis.html#getFragsByPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analysis.getFragsByPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces a list of lists for each point, each parent being list of fragments and child being list of
+atom indices</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="analysis.getFragsTraj">
+<code class="descclassname">analysis.</code><code class="descname">getFragsTraj</code><span class="sig-paren">(</span><em>traj, exclusions=['CF4', 'Ar', 'CH3F']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/analysis.html#getFragsTraj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analysis.getFragsTraj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns two lists of lists:
+- list of lists, each list is a fragment
+- list of labels corresponding to each fragment</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="analysis.plotBondDistributionComposition">
 <code class="descclassname">analysis.</code><code class="descname">plotBondDistributionComposition</code><span class="sig-paren">(</span><em>data</em>, <em>a='Si'</em>, <em>b='N'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/analysis.html#plotBondDistributionComposition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analysis.plotBondDistributionComposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Requires <code class="docutils literal"><span class="pre">data</span></code>, a pd df with ‘geom’, ‘coordlabels’, and (optionally) ‘wantedIndices’
@@ -230,10 +245,11 @@ rcut, nmax, lmax, sigma, periodic, crossover, sparse: SOAP parameters</dd>
 
 <dl class="function">
 <dt id="krr_utils.predictz">
-<code class="descclassname">krr_utils.</code><code class="descname">predictz</code><span class="sig-paren">(</span><em>surf</em>, <em>x</em>, <em>y</em>, <em>zmodel</em>, <em>species</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/krr_utils.html#predictz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#krr_utils.predictz" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">krr_utils.</code><code class="descname">predictz</code><span class="sig-paren">(</span><em>surf</em>, <em>x</em>, <em>y</em>, <em>zmodel</em>, <em>species</em>, <em>offset=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/krr_utils.html#predictz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#krr_utils.predictz" title="Permalink to this definition">¶</a></dt>
 <dd><p>surf: <em>bare</em> substrate
 x, y: position at which to place adsorbate
-zmodel: model object (which takes in a dataframe that’s n*p, p = #SOAP features)</p>
+zmodel: model object (which takes in a dataframe that’s n*p, p = #SOAP features)
+offset: boolean indicating if the model is based on surface offset or absolute height</p>
 <p>returns a predicted z value, based on sum of regionalMaxHeight and zmodel outcome</p>
 </dd></dl>
 
@@ -357,11 +373,23 @@ Returns list of 3 dfs; each one has elements and keys</p>
 <div class="section" id="module-structure">
 <span id="structure"></span><h2>structure<a class="headerlink" href="#module-structure" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="structure.getFragIndices">
+<code class="descclassname">structure.</code><code class="descname">getFragIndices</code><span class="sig-paren">(</span><em>struct</em>, <em>check=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structure.html#getFragIndices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structure.getFragIndices" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Input: </dt>
+<dd>struct: structure (Atoms object)
+check: would you like to check max connectivity?</dd>
+<dt>Output:</dt>
+<dd>array of indices for fragments</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="structure.getslab">
 <code class="descclassname">structure.</code><code class="descname">getslab</code><span class="sig-paren">(</span><em>struct</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/structure.html#getslab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#structure.getslab" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Input: </dt>
-<dd>struct: structre from which we will trim unbound species (.gen file)</dd>
+<dd>struct: structre from which we will trim unbound species (Atoms object)</dd>
 <dt>Output:</dt>
 <dd>baseslab: structure with unbound species trimmed</dd>
 </dl>
@@ -414,18 +442,22 @@ files written in input$i-$j.gen format</p>
 </div>
 <div class="section" id="module-trim">
 <span id="trim"></span><h2>trim<a class="headerlink" href="#module-trim" title="Permalink to this headline">¶</a></h2>
-<p>Designed to work on the cluster, removing ‘ejected species’ after each bomb or quench step</p>
+<p>Designed to work on the cluster, removing ‘ejected species’ after each bomb or quench step
+Make sure the source files are named in the form <cite>output%d.gen</cite></p>
 </div>
 <div class="section" id="module-trimandseed">
 <span id="trimandseed"></span><h2>trimandseed<a class="headerlink" href="#module-trimandseed" title="Permalink to this headline">¶</a></h2>
-<p>Designed to work on the cluster, removing ‘ejected species’ after each equilibration step seeding Ar</p>
+<p>Designed to work on the cluster, removing ‘ejected species’ after each equilibration step
+Make sure the source files are named in the form <cite>output%d.gen</cite></p>
 </div>
 <div class="section" id="module-utils">
 <span id="utils"></span><h2>utils<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.KE">
-<code class="descclassname">utils.</code><code class="descname">KE</code><span class="sig-paren">(</span><em>v_tot</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils.html#KE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.KE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns KE of Ar+ in eV given total velocity</p>
+<code class="descclassname">utils.</code><code class="descname">KE</code><span class="sig-paren">(</span><em>v_tot</em>, <em>m=39.95</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils.html#KE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.KE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns KE in eV given total velocity, with arraylike v and m input
+v in Å/fs, m in a.u.
+m defaults to mass for Ar</p>
 </dd></dl>
 
 <dl class="function">
@@ -497,8 +529,14 @@ adsorbateEnergy: energy of the adsorbate in the system</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="utils.vAngle">
+<code class="descclassname">utils.</code><code class="descname">vAngle</code><span class="sig-paren">(</span><em>vec</em>, <em>plane=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils.html#vAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.vAngle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get angle for vector (eg, velocity) with respect to horizontal plane</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="utils.v_from_KE">
-<code class="descclassname">utils.</code><code class="descname">v_from_KE</code><span class="sig-paren">(</span><em>E</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils.html#v_from_KE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.v_from_KE" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">utils.</code><code class="descname">v_from_KE</code><span class="sig-paren">(</span><em>E</em>, <em>m=39.95</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils.html#v_from_KE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.v_from_KE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns v(z) of Ar+ in eV given KE</p>
 </dd></dl>
 
