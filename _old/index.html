@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="formatting.css">
+    <script src="script.js"></script>
+    <link rel="shortcut icon" type="image/ico" href="https://chengeaa.github.io/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Erik Cheng, Erik S. Cheng, Eric Cheng, Data 8, UC Berkeley, Chemistry, Data Science, Rubik's Cube, Speedcubing, Decal, Research, Cedar Falls">
+    <title>Hello!</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPEB4Q9KFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JPEB4Q9KFB');
+    </script>
+
+</head>
+<body>
+
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+  $(function(){
+    $("#nav-placeholder").load("nav.html", function() {
+      $("ul.mynavbar").find("li:nth-child(1)").addClass("navactive");
+      });
+  });
+</script>
+
+<div class = "maintitle">
+    <h1>Hi! I'm Erik!</h1>
+    <h2>This website is and forever will be under construction. Feel free to poke around.</h2>
+</div>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3">
+        <h3>
+            <br>
+        </h3>
+        <!-- <img style = "width: 20vmax;display:block;margin:auto" src= "https://chengeaa.github.io/assets/13230189_891744930954638_6501320144240574769_n.jpg"> -->
+        <img style = "width: 20vmax;display:block;margin:auto" src= "https://chengeaa.github.io/assets/IMG_2709.jpg">
+
+    </div>
+
+    <div class="col-lg-9">
+        <br>
+        <p>
+        <b> My researchscripts documentation is <a href = "https://chengeaa.github.io/_build/html/index.html">here</a> </b>
+        </p>
+        <p>
+        I am a currently a third year Materials Science and Engineering PhD candidate in the Cockrell School of Engineering at the University of Texas at Austin, where I work as a Graduate Research Assistant in the <a href="http://utw10370.utweb.utexas.edu/index.html">computational materials lab of Dr. Gyeong Hwang</a>.
+        <!-- In my current research, I apply ab initio techniques (primarily density functional theory using VASP) to study gas-solid interfacial chemistry, with a particular focus on developing a mechanistic understanding of atomic layer etching (ALE). -->
+        My research interests lie largely in using data-driven approaches (including standard machine learning as well as deep learning) to understand and predict nonequilibrium chemical processes occurring during plasma processing of semiconductor materials.
+        </p>
+        <p>
+        I did my undergrad at UC Berkeley, where I obtained a B.S. in Chemistry.
+        At Berkeley, I was an undergraduate researcher in the <a href="http://www.cchem.berkeley.edu/rjsgrp/"> Saykally group </a>, where I researched the evaporation of aqueous solutions using Raman thermometry.
+        I also developed a keen interest in data science, and was involved in multiple projects through the <a href = "https://bids.berkeley.edu/"> Berkeley Institute of Data Science </a>.
+        For three semesters (Sp17-Sp18), I was also on course staff for <a href = "http://data8.org/">Foundations of Data Science</a>.
+        </p>
+        <p>
+            In my spare time, I speedcube, boulder, and play Tetris.
+        </p>
+        <button onclick="btnfxn()"> click for fun </button>
+
+        <p id="fun">
+        </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
