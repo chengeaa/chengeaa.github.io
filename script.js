@@ -1,7 +1,0 @@
-console.log("hello world");
-var i = 0;
-function btnfxn(){
-	var fun = "[Intro: Spongebob & Plankton] Fun is - It's not about winning, it's about fun! What's that? when you... fun is... it's like... it's kind of... sort of like a... What is fun? I... let me spell it for you! [Chorus: Spongebob] F is for friends who do stuff together U is for you and me N is for anywhere and anytime at all Down here in the deep blue sea! [Verse 1: Plankton] F is for fire that burns down the whole town U is for uranium... BOMBS! N is for no survivors when you're- [Bridge: Spongebob & Plankton] Plankton! Those things aren't what fun is all about! Now, do it like this F is for Friends who do stuff to- Never! That's completely idiotic! Here, let me help you... [Chorus: Spongebob & Plankton] F is for friends who do stuff together U is for you and me, try it! N is for anywhere and anytime at all Down here in the deep blue sea! [Chorus: Plankton & Spongebob] Wait...I don't understand this...I feel all tingly inside...Should we stop? No! That's how you're supposed to feel! Well, I like it! Let's do it again! Okay! [Verse 2: SpongeBob and Plankton] F is for frolic through all the flowers U is for ukulele N is for nose picking, sharing gum, and sand licking Here with my best buddy [Outro: SpongeBob and Plankton] Ha, ha, ha, ha, ha Ha, ha, ha, ha, ha Ha, ha, ha, ha, ha! Ha, ha, ha, ha, ha Ha, ha, ha, ha, haHa, ha, ha, ha, ha!".split(" ");
-	document.getElementById("fun").innerHTML += fun[i] + " ";
-	i = (i == fun.length - 1) ? 0 : i + 1;
-}

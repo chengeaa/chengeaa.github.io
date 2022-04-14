@@ -1,0 +1,153 @@
+
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+
+
+<title>dots</title>
+
+
+
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container">
+      
+
+
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell" style="display: none">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span><span class="p">,</span> <span class="n">Layout</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell"  style="display: none">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span><span class="mi">12</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell"  style="display: none">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">dotsize</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">size</span>
+<span class="n">dots</span> <span class="o">-=</span> <span class="p">[</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">]</span>
+
+<span class="n">dots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">dots</span><span class="p">])</span> <span class="c1">#r, theta</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">xtrans</span><span class="p">,</span> <span class="n">ytrans</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+    <span class="n">transdots</span> <span class="o">=</span> <span class="n">dots</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span> <span class="n">dots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">transdotsx</span><span class="p">,</span> <span class="n">transdotsy</span> <span class="o">=</span> <span class="n">transdots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">transdots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">transdots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">transdots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">transdotsx</span><span class="p">,</span> <span class="n">transdotsy</span> <span class="o">=</span> <span class="n">transdotsx</span> <span class="o">+</span> <span class="n">xtrans</span><span class="p">,</span> <span class="n">transdotsy</span> <span class="o">+</span> <span class="n">ytrans</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">dotsize</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">transdotsx</span><span class="p">,</span> <span class="n">transdotsy</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">dotsize</span><span class="p">)</span>
+
+<span class="n">transmax</span><span class="p">,</span> <span class="n">transmin</span><span class="p">,</span> <span class="n">transstep</span> <span class="o">=</span> <span class="n">size</span><span class="o">/</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="n">size</span><span class="o">/</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">/</span><span class="mi">250</span>
+<span class="n">interact</span><span class="p">(</span><span class="n">f</span><span class="p">,</span>
+         <span class="n">theta</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="s1">&#39;50%&#39;</span><span class="p">)),</span>
+         <span class="n">xtrans</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span> <span class="o">=</span> <span class="n">transmin</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="n">transmax</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">transstep</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="s1">&#39;50%&#39;</span><span class="p">)),</span>
+         <span class="n">ytrans</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span> <span class="o">=</span> <span class="n">transmin</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="n">transmax</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">transstep</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="s1">&#39;50%&#39;</span><span class="p">)),</span>
+        <span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+  <div class="output_subarea output_widget_view ">
+    <button class="js-nbinteract-widget">
+      Loading widgets...
+    </button>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+  </div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
+
+
+
+<!-- Loads nbinteract package -->
+<script src="https://unpkg.com/nbinteract-core" async></script>
+<script>
+  (function setupNbinteract() {
+    // If NbInteract hasn't loaded, wait one second and try again
+    if (window.NbInteract === undefined) {
+      setTimeout(setupNbinteract, 1000)
+      return
+    }
+
+    var interact = new window.NbInteract({
+      spec: 'chengeaa/0f5f079c2fcbe975a5a3a1d07ed5799a/master',
+      baseUrl: 'https://mybinder.org',
+      provider: 'gist',
+    })
+    interact.prepare()
+
+    window.interact = interact
+  })()
+</script>
+    </div>
+  </div>
+</body>
