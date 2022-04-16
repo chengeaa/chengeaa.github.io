@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: chengeaa.github.io/sitemap.xml
+Sitemap: https://chengeaa.github.io/sitemap.xml
